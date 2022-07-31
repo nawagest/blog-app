@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e8e8e8;
+  height: 100vh;
+  font-family: 'Rubik', sans-serif;
+}
+
+.header {
+  display: flex;
+}
+
+.add {
+  background: #c2c2c2;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 0 0 calc(100%/1.125);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+hr {
+  margin: 20px 0 0 0;
+  border: #c2c2c2 solid 3px;
+}
+
+.posts-container {
+  padding: 40px;
+  height: 100%;
+}
+
+.post:first-child {
+  margin: 0;
+}
+
+.post {
+  padding: 30px;
+  margin: 20px 0 0 0;
+  background: #c2c2c2;
+}
+
+/* .footer {
+  background: #20517e;
+  position: fixed;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-text {
+  color: white;
+} */
+
+.title {
+  font-weight: 600;
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
+
+.date {
+  font-weight: 300;
+}
+
+.desc {
+  margin-top: 2.5px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.delete {
+  display: inline;
+}
+
+.readme-link {
+  text-decoration: none;
+}
+
+.readme-link:hover {
+  text-decoration: none;
+}
+
+.readme-btn {
+  color: white;
+  background: #2978e0;
+  margin: 10px 0 0 0;
+}
+
+.delete-btn {
+  color: white;
+  background: #e02929;
+  margin: 10px 10px 0 10px;
+}
+
+.readme-btn, .delete-btn {
+  padding: 10px;
+  width: 100px;
+  height:50px;
+  border: none;
+  transition: border-radius 0.5s ease, background 0.5s ease;
+}
+
+.readme-btn:hover {
+  cursor: pointer;
+  border-radius: 15px;
+  background: #2978e0bc;
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+  border-radius: 15px;
+  background: #e02929bc;
+}
+
+a {
+  color: white;
+  font-family: sans-serif;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

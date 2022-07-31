@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      /* margin: 0;
+      padding: 0; */
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rubik', sans-serif;
+    }
+
+    .post {
+      padding: 20px;
+      background: #c4c4c4;
+    }
+
+    hr {
+      margin: 20px 0 20px 0;
+      border: #e6e6e6 solid 3px;
+    }
+
+    .title {
+      font-weight: 600;
+      text-decoration: underline;
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-weight: 300;
+    }
+
+    .desc {
+      margin-top: 2.5px;
+      font-weight: 200;
+      font-style: italic;
+    }
+  </style>
+  <title><%= post.main.title %></title>
+</head>
+<body>
+  <div class="post">
+    <h1 class="title"><%= post.main.title %></h1>
+    <h4 class="date"><%= post.date %></h4>
+    <h2 class="desc"><%= post.main.desc %></h1>
+    <hr>
+    <%- post.sanitizedHTML %>
+  </div>
+</body>
+</html>

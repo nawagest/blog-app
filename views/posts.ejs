@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/posts.css"></link>
+  <link rel="stylesheet" href="css/navbar.css"></link>
+  <link rel="stylesheet" href="css/footer.css">
+  <title>Posts!</title>
+</head>
+<body>
+  <%- include('./partials/navbar') -%>
+  <div class="posts-container">
+    <div class="header">
+      <h1 class="header-h1">Posts</h1>
+      <div class="add">
+        <a href="/create">+</a>
+      </div>
+    </div>
+    <hr>
+  <% posts?.reverse().forEach(post => { %>
+    <div class="post">
+      <h1 class="title"><%= post.main.title %></h1>
+      <h4 clas="date"><%= post.date %></h4>
+      <h3 class="desc"><%= post.main.desc %></h3>
+      <a class="readme-link" href="/posts/<%= post.id %>"><button class="readme-btn">Read More</button></a>
+      <form class="delete" action="/posts?_method=DELETE" method="POST">
+        <button class="delete-btn" name="uuid" value="<%= post.uuid %>" type="submit">DELETE</button>
+      </form>
+    </div>
+    <hr>
+  <% }) %>
+  </div>
+  <div class="footer">
+    <%- include('./partials/footer') -%>
+</body>
+</html>
