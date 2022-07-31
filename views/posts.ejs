@@ -25,7 +25,7 @@
       <h4 clas="date"><%= post.date %></h4>
       <h3 class="desc"><%= post.main.desc %></h3>
       <a class="readme-link" href="/posts/<%= post.id %>"><button class="readme-btn">Read More</button></a>
-      <button class="delete-btn">DELETE</button>
+      <a href="#delete-post" style="text-decoration: none;"><button class="delete-btn">DELETE</button></a>
     </div>
     <hr>
     <div class="modal hidden">
@@ -37,7 +37,7 @@
       </form>
     </div>
     <% }) %>
-    <div class="overlay hidden"></div>
+    <div class="overlay hidden" id="delete-post"></div>
   </div>
   <script src="js/script.js"></script>
 </body>
