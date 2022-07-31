@@ -12,13 +12,6 @@ const { v4: uuidv4 } = require('uuid');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3001;
 
-// add uuid to Schema and not slug cus slug has its own issues ✅
-// style each individual post ✅
-// learn markdown syntax
-// fix footer ✅
-// create a secret pass that only ik so i can create the blog posts
-// push db on atlas and finally post site to heroku
-
 mongoose.connect(`mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/postsDB`);
 
 const postSchema = new mongoose.Schema({
@@ -82,7 +75,7 @@ app.get('/posts', (req, res) => {
     if(posts) {
       res.render('posts', { posts });
     } else {
-      // console.log(err);
+      console.log(err);
     }
   })
 });
@@ -109,5 +102,5 @@ app.get('/posts/:id', (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server started on ${port}`);
+  console.log(`Server started`);
 });
