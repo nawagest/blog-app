@@ -8,6 +8,9 @@
   <title>Create a Blog Post!</title>
 </head>
 <body>
+  <div class="popup hidden">
+    <p>Incorrect Password. Please Try Again!</p>
+  </div>
   <div class="form-container">
     <h1>New Post</h1>
     <form class="form" action="/create" method="post">
@@ -23,9 +26,14 @@
         <label for="content">Content:</label>
         <textarea required name="content" cols="100" rows="10" style="resize: none; padding: 5px 0 0 5px;"></textarea>
       </div>
+      <div class="form-group">
+        <label for="creatorPass">Password:</label>
+        <input required type="password" name="creatorPass">
+      </div>
       <button type="submit">Submit</button>
     </form>
     <a href="/"><button class="cancel-btn">Cancel</button></a>
   </div>
+  <script src="js/script.js"></script>
 </body>
 </html>

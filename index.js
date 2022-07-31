@@ -9,10 +9,19 @@ const createDOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
 const dompurify = new createDOMPurify(new JSDOM().window);
 const { v4: uuidv4 } = require('uuid');
+const dotenv = require('dotenv').config();
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3001;
 
-mongoose.connect(`mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/postsDB`);
+const devDB = 'mongodb://localhost:27017/postDB';
+const productionDB = `mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/postsDB`;
+
+mongoose.connect(devDB);
+
+// clear out values after submission on form
+// add the /contact page
+// fix css for modal and overlay
+// find bugs and fix them
 
 const postSchema = new mongoose.Schema({
   main: {
@@ -53,20 +62,24 @@ app.get('/create', (req, res) => {
 });
 
 app.post('/create', (req, res) => {
-  const data = new Post({ 
-    main: req.body, 
-    date, 
-    truncatedContent: truncate(req.body.content, { 
-      length: 100 
-    }), 
-    slug: slugify(req.body.title, { 
-      lower: true, 
-      strict: true 
-    }),
-    sanitizedHTML: dompurify.sanitize(marked.parse(req.body.content)),
-    uuid: uuidv4()
-  });
-  data.save();
+  if(req.body.creatorPass === process.env.CREATOR_PASS) {
+    const data = new Post({ 
+      main: req.body, 
+      date, 
+      truncatedContent: truncate(req.body.content, { 
+        length: 100 
+      }), 
+      slug: slugify(req.body.title, { 
+        lower: true, 
+        strict: true 
+      }),
+      sanitizedHTML: dompurify.sanitize(marked.parse(req.body.content)),
+      uuid: uuidv4()
+    });
+    data.save();
+  } else {
+    res.redirect('/create?failed=true');
+  }
   res.redirect(`/posts`);
 });
 
@@ -81,12 +94,16 @@ app.get('/posts', (req, res) => {
 });
 
 app.delete('/posts', (req, res) => {
-  Post.deleteOne({ uuid: req.body.uuid }, function(err, post) {
-    if(err) {
-      console.log(err);
-    }
-  });
-  res.redirect('/posts');
+  if(req.body.creatorPass === process.env.CREATOR_PASS) {
+    Post.deleteOne({ uuid: req.body.uuid }, function(err, post) {
+      if(err) {
+        console.log(err);
+      }
+    });
+    res.redirect('/posts');
+  } else {
+    res.redirect('/')
+  }
 });
 
 app.get('/posts/:id', (req, res) => {

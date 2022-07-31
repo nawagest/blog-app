@@ -2,8 +2,9 @@
     background: #20517e;
     position: relative;
     bottom: 0;
-    height: 122px;
-    width: 100%;
+    margin-top: 20px;
+    height: 102px;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
