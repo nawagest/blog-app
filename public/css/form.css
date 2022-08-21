@@ -32,6 +32,63 @@ body {
   flex-direction: column;
 }
 
+input {
+  width: 100%;
+}
+
+.placeholder {
+  position: absolute;
+  left: 7.5px;
+  top: 8px;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+input[type="text"] {
+  padding: 10px;
+  outline: none;
+  border-radius: 5px;
+  border: rgba(0, 0, 0, 0.2) solid 2px;
+  transition: 0.5s;
+  z-index: 0;
+}
+
+input[type="text"]:focus {
+  border: solid black 2px;
+}
+
+input[type="text"]:valid + .placeholder,
+input[type="text"]:focus + .placeholder {
+  font-size: 12px;
+  transform: translateY(-15px);
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #DBDBDB;
+  padding: 0 5px;
+}
+
+textarea {
+  padding: 10px;
+  outline: none;
+  border-radius: 5px;
+  border: rgba(0, 0, 0, 0.2) solid 2px;
+  transition: 0.5s;
+  z-index: 0;
+}
+
+textarea:focus {
+  border: solid black 2px;
+}
+
+textarea:valid + .placeholder,
+textarea:focus + .placeholder {
+  font-size: 12px;
+  transform: translateY(-15px);
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #DBDBDB;
+  padding: 0 5px;
+}
+
 button {
   border: none;
   width: 100%;
@@ -43,17 +100,14 @@ button {
 }
 
 input {
-  border: none;
   height: 30px;
-  margin: 10px 0 0 0;
-  background: #c4c4c4;
+  background: #DBDBDB;
   font-family: 'Rubik', sans-serif;
 }
 
 textarea {
-  border: none;
   margin: 10px 0 0 0;
-  background: #c4c4c4;
+  background: #DBDBDB;
   font-family: 'Rubik', sans-serif;
 }
 

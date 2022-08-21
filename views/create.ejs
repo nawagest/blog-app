@@ -15,20 +15,28 @@
     <h1>New Post</h1>
     <form class="form" action="/create" method="post">
       <div class="form-group">
-        <label for="title">Title:</label>
-        <input maxlength="40" required name="title" type="text">
+        <label for="title" class="title-label" style="position: relative;">
+          <input type="text" id="title" required style="width: 50%;">
+          <span class="placeholder">Title</span>
+        </label>
       </div>
       <div class="form-group">
-        <label for="desc">Description:</label>
-        <input maxlength="150" name="desc" type="text">
+        <label for="desc" class="desc-label" style="position: relative;">
+          <input type="text" id="desc" required style="width: 100%;">
+          <span class="placeholder">Description</span>
+        </label>
       </div>
       <div class="form-group">
-        <label for="content">Content:</label>
-        <textarea required name="content" cols="100" rows="10" style="resize: none; padding: 5px 0 0 5px;"></textarea>
+        <label for="title" class="title-label" style="position: relative;">
+          <textarea required name="content" cols="75" rows="10" style="resize: none;"></textarea>
+          <span class="placeholder" style="top: 17.5px;">Content</span>
+        </label>
       </div>
       <div class="form-group">
-        <label for="creatorPass">Password:</label>
-        <input required type="password" name="creatorPass">
+        <label for="creatorPass" class="pass-label" style="position: relative;">
+          <input type="text" id="creatorPass" required>
+          <span class="placeholder">Password</span>
+        </label>
       </div>
       <button type="submit">Submit</button>
     </form>
