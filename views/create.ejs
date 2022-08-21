@@ -16,25 +16,25 @@
     <form class="form" action="/create" method="post">
       <div class="form-group">
         <label for="title" class="title-label" style="position: relative;">
-          <input type="text" id="title" required style="width: 50%;">
+          <input type="text" id="title" name="title" required style="width: 50%;">
           <span class="placeholder">Title</span>
         </label>
       </div>
       <div class="form-group">
         <label for="desc" class="desc-label" style="position: relative;">
-          <input type="text" id="desc" required style="width: 100%;">
+          <input type="text" id="desc" name="desc" required style="width: 100%;">
           <span class="placeholder">Description</span>
         </label>
       </div>
       <div class="form-group">
-        <label for="title" class="title-label" style="position: relative;">
+        <label for="content" class="content-label" style="position: relative;">
           <textarea required name="content" cols="75" rows="10" style="resize: none;"></textarea>
           <span class="placeholder" style="top: 17.5px;">Content</span>
         </label>
       </div>
       <div class="form-group">
         <label for="creatorPass" class="pass-label" style="position: relative;">
-          <input type="text" id="creatorPass" required>
+          <input type="text" id="creatorPass" name="creatorPass" required>
           <span class="placeholder">Password</span>
         </label>
       </div>
