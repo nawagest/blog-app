@@ -16,7 +16,7 @@ const port = process.env.PORT || 3001;
 const devDB = 'mongodb://localhost:27017/postDB';
 const productionDB = `mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/postsDB`;
 
-mongoose.connect(productionDB);
+mongoose.connect(devDB);
 
 // clear out values after submission on form
 // add the /contact page
