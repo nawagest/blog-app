@@ -1,22 +1,22 @@
 // v3
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const ejs = require('ejs');
-const slugify = require('slugify');
-const { truncate } = require('lodash');
-const methodOverride = require('method-override');
-const marked = require('marked');
-const createDOMPurify = require('dompurify');
-const { JSDOM } = require('jsdom');
+const express = require("express");
+const bodyParser = require("body-parser");
+const ejs = require("ejs");
+const slugify = require("slugify");
+const { truncate } = require("lodash");
+const methodOverride = require("method-override");
+const marked = require("marked");
+const createDOMPurify = require("dompurify");
+const { JSDOM } = require("jsdom");
 const dompurify = new createDOMPurify(new JSDOM().window);
-const { v4: uuidv4 } = require('uuid');
-const dotenv = require('dotenv').config();
-const mongoose = require('mongoose');
-const port = process.env.PORT || 3001;
+const { v4: uuidv4 } = require("uuid");
+const dotenv = require("dotenv").config();
+const mongoose = require("mongoose");
+const port = process.env.PORT || 3000;
 
-const devDB = 'mongodb://localhost:27017/postDB';
-const productionDB = `mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/postsDB`;
+const devDB = "mongodb://localhost:27017/postDB";
+const productionDB = `mongodb+srv://nawagest:${process.env.DB_USER_PASS}@blog-app-cluster.ahee9gh.mongodb.net/?retryWrites=true&w=majority`;
 
 mongoose.connect(productionDB);
 
@@ -29,95 +29,97 @@ const postSchema = new mongoose.Schema({
   main: {
     title: {
       type: String,
-      required: true
+      required: true,
     },
     desc: String,
     content: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   date: String,
   truncatedContent: String,
   slug: String,
   sanitizedHTML: String,
-  uuid: String
+  uuid: String,
 });
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 const app = express();
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(methodOverride('_method'));
+app.use(express.static("public"));
+app.use(methodOverride("_method"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const date = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const date = new Date().toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.sendFile(`${__dirname}/index.html`);
 });
 
-app.get('/create', (req, res) => {
-  res.render('create');
+app.get("/create", (req, res) => {
+  res.render("create");
 });
 
-app.post('/create', (req, res) => {
-  if(req.body.creatorPass === process.env.CREATOR_PASS) {
-    const data = new Post({ 
-      main: req.body, 
-      date, 
-      truncatedContent: truncate(req.body.content, { 
-        length: 100 
-      }), 
-      slug: slugify(req.body.title, { 
-        lower: true, 
-        strict: true 
+app.post("/create", (req, res) => {
+  if (req.body.creatorPass === process.env.CREATOR_PASS) {
+    const data = new Post({
+      main: req.body,
+      date,
+      truncatedContent: truncate(req.body.content, {
+        length: 100,
+      }),
+      slug: slugify(req.body.title, {
+        lower: true,
+        strict: true,
       }),
       sanitizedHTML: dompurify.sanitize(marked.parse(req.body.content)),
-      uuid: uuidv4()
+      uuid: uuidv4(),
     });
     data.save();
   } else {
-    res.redirect('/create?failed=true');
+    res.redirect("/create?failed=true");
   }
   res.redirect(`/posts`);
 });
 
-app.get('/posts', (req, res) => {
-  Post.find({}, function(err, posts) {
-    if(posts) {
-      res.render('posts', { posts });
+app.get("/posts", (req, res) => {
+  Post.find({}, function (err, posts) {
+    if (posts) {
+      res.render("posts", { posts });
     } else {
       console.log(err);
     }
-  })
+  });
 });
 
-app.delete('/posts', (req, res) => {
-  if(req.body.creatorPass === process.env.CREATOR_PASS) {
-    Post.deleteOne({ uuid: req.body.uuid }, function(err, post) {
-      if(err) {
+app.delete("/posts", (req, res) => {
+  if (req.body.creatorPass === process.env.CREATOR_PASS) {
+    Post.deleteOne({ uuid: req.body.uuid }, function (err, post) {
+      if (err) {
         console.log(err);
       }
     });
-    res.redirect('/posts');
+    res.redirect("/posts");
   } else {
-    res.redirect('/')
+    res.redirect("/");
   }
 });
 
-app.get('/posts/:id', (req, res) => {
+app.get("/posts/:id", (req, res) => {
   const post = Post.find({}, (err, p) => {
     // const param = slugify(req.params.id, { lower: true, strict: true })
     const param = req.params.id;
-    const post = p.find(post => post.uuid === param)
-    if (post.uuid === param)
-      res.render('post', { post });
-    else
-      res.render('error', { page: req.params.id });
-    });
+    const post = p.find((post) => post.uuid === param);
+    if (post.uuid === param) res.render("post", { post });
+    else res.render("error", { page: req.params.id });
+  });
 });
 
 app.listen(port, () => {
